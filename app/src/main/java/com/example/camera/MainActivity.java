@@ -79,7 +79,7 @@ import android.os.Handler;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity {
 
-    static String TOKEN = "BBFF-BsHInODp5psZRY9J0wvR3p79KVXlMd";
+    static String TOKEN = "your token";
     static String HOST = "tcp://industrial.api.ubidots.com:1883";
     MqttAndroidClient client;
 
