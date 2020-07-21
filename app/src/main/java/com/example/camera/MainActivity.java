@@ -75,7 +75,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.UnsupportedEncodingException;
-
+import android.os.Handler;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity {
 
@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
     MqttAndroidClient client;
 
     private Button btnCapture;
+    private Button btnStart;
+    private Button btnEnd;
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -137,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
         textureView = (TextureView) findViewById(R.id.textureView);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
+        init_buttons();
+
+    }
+
+    private void init_buttons() {
         btnCapture = (Button) findViewById(R.id.btnCapture);
         btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +151,40 @@ public class MainActivity extends AppCompatActivity {
                 takePicture();
             }
         });
+        btnStart = (Button) findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.post(runnableCode);
+            }
+        });
+        btnEnd = (Button) findViewById(R.id.btnEnd);
+        btnEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handler.removeCallbacks(runnableCode);
+            }
+        });
     }
+
+    // We need to use this Handler package
+
+
+    // Create the Handler object (on the main thread by default)
+    Handler handler = new Handler();
+    // Define the code block to be executed
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+            takePicture();
+            Log.d("Handlers", "Called on main thread");
+            // Repeat this the same runnable code block again another 2 seconds
+            // 'this' is referencing the Runnable object
+            handler.postDelayed(this, 60000);
+        }
+    };
+
+
 
     private void mqtt_client_connect() {
         String clientId = MqttClient.generateClientId();

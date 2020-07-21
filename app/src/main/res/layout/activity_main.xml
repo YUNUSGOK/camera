@@ -14,9 +14,27 @@
 
     <Button
         android:id="@+id/btnCapture"
-        android:layout_width="match_parent"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:text="Capture"
         android:layout_alignParentBottom="true"
-        />
+
+        android:text="Capture" />
+
+    <Button
+        android:id="@+id/btnEnd"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="260dp"
+        android:layout_marginBottom="0dp"
+        android:text="End" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="130dp"
+        android:layout_marginBottom="0dp"
+        android:text="Start" />
 </RelativeLayout>
